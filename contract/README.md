@@ -1,6 +1,6 @@
 # Contract Address
 
-[0x639dc04fdC20cae5B20Ce5283D4275525232A153](https://rinkeby.etherscan.io/address/0x639dc04fdC20cae5B20Ce5283D4275525232A153)
+[0xD6f6dF28EC73Dd2EB53b371e2cf34141ac4950AC](https://rinkeby.etherscan.io/address/0xD6f6dF28EC73Dd2EB53b371e2cf34141ac4950AC)
 
 npx hardhat run scripts/deploy.ts --network rinkeby
 
