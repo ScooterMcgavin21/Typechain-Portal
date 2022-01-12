@@ -1,3 +1,9 @@
+# Contract Address
+
+[0x639dc04fdC20cae5B20Ce5283D4275525232A153](https://rinkeby.etherscan.io/address/0x639dc04fdC20cae5B20Ce5283D4275525232A153)
+
+npx hardhat run scripts/deploy.ts --network rinkeby
+
 # Advanced Sample Hardhat Project
 
 This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
