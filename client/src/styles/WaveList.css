@@ -1,0 +1,22 @@
+.table {
+  table-layout: fixed;
+}
+
+.column-head {
+  border: 2px solid white;
+}
+
+.wave-pos {
+  width: 33.33%;
+}
+
+.msg-pos {
+  width: 60%;
+}
+
+.date-pos {
+  width: 33.33%;
+}
+.cell-data {
+  overflow-wrap: break-word;
+}

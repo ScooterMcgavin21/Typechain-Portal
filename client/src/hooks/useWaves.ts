@@ -16,9 +16,10 @@ const useWaves = () => {
   const [allWaves, setAllWaves] = useState<Wave[]>([]);
   const [isLoading, setIsLoading] = useState<Boolean>(true);
 
+  const { ethereum } = window;
+
   useEffect(() => {
     try {
-      const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum as any);
         const signer = provider.getSigner();
@@ -30,18 +31,29 @@ const useWaves = () => {
 
         // Call the getAllWaves method from contract, get address time and msg for UI
         wavePortalContract.getAllWaves().then((waves) => {
-          waves.forEach((wave) => {
-            setAllWaves([
-              ...allWaves,
-              {
-                address: wave.waver,
-                timestamp: new Date(wave.timestamp.toNumber() * 1000),
-                message: wave.message,
-              },
-            ]);
-          });
+          setAllWaves(
+            waves.map((wave) => ({
+              address: wave.waver,
+              timestamp: new Date(wave.timestamp.toNumber() * 1000),
+              message: wave.message,
+            }))
+          );
           setIsLoading(false);
         });
+        // wavePortalContract.getAllWaves().then((waves) => {
+        //   waves.forEach((wave) => {
+        //     setAllWaves([
+        //       ...allWaves,
+        //       {
+        //         address: wave.waver,
+        //         timestamp: new Date(wave.timestamp.toNumber() * 1000),
+        //         message: wave.message,
+        //       },
+        //     ]);
+        //   });
+        //   setIsLoading(false);
+        // });
+
       } else {
         console.log("Ethereum object does not exist");
         setIsLoading(false);
@@ -50,10 +62,42 @@ const useWaves = () => {
       console.log(error);
       setIsLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [ethereum]);
 
-  return { waves: allWaves, isLoading };
+  // wave 
+  const wave = async () => {
+    try {
+  
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum as any);
+        const signer = provider.getSigner();
+        const wavePortalContract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+  
+        let count = await wavePortalContract.getTotalWaves(); // x
+        console.log('Retrieved total wave count...', count.toNumber()); // x
+  
+        // call wave method from contract
+        const waveTxn = await wavePortalContract.wave('Test wave');
+        console.log('Mining... ', waveTxn.hash);
+  
+        await waveTxn.wait();
+        console.log('Mined -- ', waveTxn.hash);
+  
+        count = await wavePortalContract.getTotalWaves(); // x
+        console.log('Retrieved total wave count...', count.toNumber());
+      } else {
+        console.log("Ethereum object doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { waves: allWaves, wave, isLoading };
 };
 
 export default useWaves;
