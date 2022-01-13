@@ -1,5 +1,11 @@
-# Typescript-Portal-v2
+# Typechain-Portal
+
+A Web3 app built with typescript bindings
 
 ## Getting started
 
-A Web3 app built with typescript
+```sh
+git clone
+cd client
+npm run start
+```
