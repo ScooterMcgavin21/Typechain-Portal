@@ -23,8 +23,8 @@ const main = async () => {
   const waveTxn = await waveContract.wave("Wave 1");
   await waveTxn.wait();
 
-  const waveTxn2 = await waveContract.wave("Wave 2");
-  await waveTxn2.wait();
+  // const waveTxn2 = await waveContract.wave("Wave 2");
+  // await waveTxn2.wait();
 
   // const [_, randomPerson] = await hre.ethers.getSigners();
   // const waveTxnTwo = await waveContract.connect(randomPerson).wave("Message");

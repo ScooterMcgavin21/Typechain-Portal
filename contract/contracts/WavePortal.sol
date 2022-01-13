@@ -18,12 +18,25 @@ contract WavePortal {
 
     Wave[] private waves;
 
+    // associate address with a number, storing address with last time user waved
+    mapping(address => uint256) public lastWavedAt;
+
     constructor() payable {
         console.log("I am a constructed smart contract, this is my life");
         seed = (block.timestamp * block.difficulty) % 100;
     }
 
     function wave(string memory _message) public {
+        console.log("Last waved: %s", lastWavedAt[msg.sender]);
+        // cooldown
+        require(
+            lastWavedAt[msg.sender] + 15 seconds < block.timestamp,
+            "Cooldown: Wait 15 seconds"
+        );
+
+        // Update lastwaved for user
+        lastWavedAt[msg.sender] = block.timestamp;
+
         totalWaves += 1;
         console.log("%s waved!", msg.sender);
 
