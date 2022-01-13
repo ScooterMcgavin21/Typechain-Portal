@@ -6,6 +6,7 @@ import "hardhat/console.sol";
 
 contract WavePortal {
     uint256 private totalWaves;
+    uint256 private seed;
 
     event NewWave(address indexed from, uint256 timestamp, string message);
 
@@ -19,6 +20,7 @@ contract WavePortal {
 
     constructor() payable {
         console.log("I am a constructed smart contract, this is my life");
+        seed = (block.timestamp * block.difficulty) % 100;
     }
 
     function wave(string memory _message) public {
@@ -27,17 +29,24 @@ contract WavePortal {
 
         waves.push(Wave(msg.sender, _message, block.timestamp));
 
+        seed = (block.timestamp * block.difficulty + seed) % 100; // generate new seed
+        console.log("Random # generated %s", seed);
+
+        if (seed <= 50) {
+            console.log("%s won!", msg.sender);
+
+            uint256 prizeAmount = 0.0001 ether;
+
+            require(
+                prizeAmount <= address(this).balance,
+                "Contract has less than the withdraw amount."
+            );
+
+            (bool success, ) = (msg.sender).call{value: prizeAmount}("");
+            require(success, "Yo this contract cant even pay you out!");
+        }
+
         emit NewWave(msg.sender, block.timestamp, _message);
-
-        uint256 prizeAmount = 0.0001 ether;
-
-        require(
-            prizeAmount <= address(this).balance,
-            "Contract has less than the withdraw amount."
-        );
-
-        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
-        require(success, "Yo this contract cant even pay you out!");
     }
 
     function getAllWaves() public view returns (Wave[] memory) {
