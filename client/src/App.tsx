@@ -22,7 +22,7 @@ function App() {
             e.preventDefault();
             wave(message);
           }}
-          className='form'
+          className='formx'
         >
           <textarea
             required

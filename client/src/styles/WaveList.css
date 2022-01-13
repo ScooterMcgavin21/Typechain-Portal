@@ -1,22 +1,27 @@
 .table {
   table-layout: fixed;
+  border: 2px solid gray;
 }
 
 .column-head {
-  border: 2px solid white;
+  border: 2px solid gray;
 }
 
 .wave-pos {
   width: 33.33%;
+  border: 2px solid gray;
 }
 
 .msg-pos {
   width: 60%;
+  border: 2px solid blue;
 }
 
 .date-pos {
   width: 33.33%;
+  border: 2px solid red;
 }
 .cell-data {
   overflow-wrap: break-word;
+  border: 2px solid gray;
 }
