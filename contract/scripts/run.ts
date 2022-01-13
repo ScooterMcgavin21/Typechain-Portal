@@ -26,10 +26,6 @@ const main = async () => {
   // const waveTxn2 = await waveContract.wave("Wave 2");
   // await waveTxn2.wait();
 
-  // const [_, randomPerson] = await hre.ethers.getSigners();
-  // const waveTxnTwo = await waveContract.connect(randomPerson).wave("Message");
-  // await waveTxnTwo.wait();
-
   // Get Contract Balance after the wave
   contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
   console.log(

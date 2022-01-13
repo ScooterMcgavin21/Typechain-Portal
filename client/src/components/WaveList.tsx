@@ -17,8 +17,8 @@ const WaveList: React.FC = (): React.ReactElement => {
         {waves &&
           waves.map((wave) => (
             <tr key={`${wave.address}${wave.timestamp.toISOString()}`}>
-              <td className='cell-data'>{truncate(wave.address)}</td>
-              {/* <td className='cell-data'>{wave.address.slice(0, 5)}</td> */}
+              {/* <td className='cell-data'>{truncate(wave.address)}</td> */}
+              <td className='cell-data'>{wave.address.slice(0, 5)}</td>
               <td className='cell-data'>{wave.message}</td>
               <td className='cell-data'>{wave.timestamp.toDateString()}</td>
             </tr>
@@ -30,6 +30,6 @@ const WaveList: React.FC = (): React.ReactElement => {
 
 export default WaveList;
 
-const truncate = (str: string) => {
-  return `${str.substr(0, 5)}...${str.substr(str.length - 5, 5)}`;
-};
+// const truncate = (str: string) => {
+//   return `${str.substr(0, 5)}...${str.substr(str.length - 5, 5)}`;
+// };

@@ -5,7 +5,7 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract WavePortal {
-    uint256 private totalWaves;
+    uint256 totalWaves;
     uint256 private seed;
 
     event NewWave(address indexed from, uint256 timestamp, string message);
@@ -16,7 +16,7 @@ contract WavePortal {
         uint256 timestamp;
     }
 
-    Wave[] private waves;
+    Wave[] waves;
 
     // associate address with a number, storing address with last time user waved
     mapping(address => uint256) public lastWavedAt;
@@ -27,14 +27,14 @@ contract WavePortal {
     }
 
     function wave(string memory _message) public {
-        console.log("Last waved: %s", lastWavedAt[msg.sender]);
-        // cooldown
+        //console.log("Last waved: %s", lastWavedAt[msg.sender]);
+        // cooldown: current timestamp is atleast 2 mins or larger
         require(
-            lastWavedAt[msg.sender] + 15 seconds < block.timestamp,
-            "Cooldown: Wait 15 seconds"
+            lastWavedAt[msg.sender] + 2 minutes < block.timestamp,
+            "Cooldown: Wait 2 minutes"
         );
 
-        // Update lastwaved for user
+        // Update current timestamp for user
         lastWavedAt[msg.sender] = block.timestamp;
 
         totalWaves += 1;
@@ -42,7 +42,8 @@ contract WavePortal {
 
         waves.push(Wave(msg.sender, _message, block.timestamp));
 
-        seed = (block.timestamp * block.difficulty + seed) % 100; // generate new seed
+        // generate new seed for next user
+        seed = (block.timestamp * block.difficulty + seed) % 100;
         console.log("Random # generated %s", seed);
 
         if (seed <= 50) {

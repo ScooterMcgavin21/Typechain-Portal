@@ -64,10 +64,9 @@ const useWaves = () => {
     }
   }, [ethereum]);
 
-  // wave 
+  // wave function
   const wave = async () => {
     try {
-  
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum as any);
         const signer = provider.getSigner();
@@ -76,14 +75,13 @@ const useWaves = () => {
           contractABI,
           signer
         );
-  
-        let count = await wavePortalContract.getTotalWaves(); // x
-        console.log('Retrieved total wave count...', count.toNumber()); // x
-  
+
+        let count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
+    
         // call wave method from contract
-        const waveTxn = await wavePortalContract.wave('Test wave');
+        const waveTxn = await wavePortalContract.wave("Test wave");
         console.log('Mining... ', waveTxn.hash);
-  
         await waveTxn.wait();
         console.log('Mined -- ', waveTxn.hash);
   
