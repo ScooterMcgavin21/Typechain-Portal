@@ -1,4 +1,3 @@
-import './App.css';
 import Form from './components/Form';
 import Nav from './components/Nav';
 import WaveList from './components/WaveList';

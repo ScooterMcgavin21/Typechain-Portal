@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import useDetectWallet from '../../hooks/useDetectWallet';
 import useWaves from '../../hooks/useWaves';
-import { FormContainer, Formx, TextAreax, WaveBtn } from './FormElements';
+import {
+  FormContainer,
+  Formx,
+  LabelBox,
+  TextAreax,
+  WaveBtn,
+} from './FormElements';
 
 /**
  * Form Component
@@ -12,17 +18,17 @@ const Form: React.FC = (): React.ReactElement => {
   const { currentAccount, isConnected } = useDetectWallet();
   return (
     <FormContainer>
-      <h1>👋 Hey nerd!</h1>
+      <h1>Hey nerd!</h1>
       <Formx
         onSubmit={(e) => {
           e.preventDefault();
           wave(message);
         }}
       >
-        <label htmlFor='input'>Scooter here with typescript and web3</label>
+        <LabelBox htmlFor='input'>Connect to Rinkeby and send a wave</LabelBox>
         <TextAreax
           required
-          placeholder='Wave'
+          placeholder='👋 Wave'
           value={message}
           onChange={(e) => setMessage(e.target.value)}
         />
