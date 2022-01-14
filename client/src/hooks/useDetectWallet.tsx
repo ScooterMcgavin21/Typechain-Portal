@@ -5,12 +5,14 @@ interface Return {
   error: string | null;
   connectWallet: () => void;
   isLoading: boolean;
+  isConnected: boolean;
 }
 
 const useDetectWallet = (): Return => {
   const [currentAccount, setCurrentAccount] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isConnected, setIsConnected] = useState<boolean>(true);
 
   useEffect(() => {
     try {
@@ -69,12 +71,13 @@ const useDetectWallet = (): Return => {
 
       console.log('Connected', accounts[0]);
       setCurrentAccount(accounts[0]);
+      setIsConnected(true);
     } catch (error) {
       console.error(error);
     }
   };
 
-  return { currentAccount, error, connectWallet, isLoading };
+  return { currentAccount, error, connectWallet, isLoading, isConnected };
 };
 
 export default useDetectWallet;
